@@ -1,0 +1,23 @@
+<%-include('partials/head.ejs') %>
+
+
+<h1>Write a new comment</h1>
+<form action="/comments/<%=comm.id%>?_method=PATCH" method="post">
+    <section>
+  <p><b><%=comm.name%></b></p>
+</section>
+<section>
+        <label for="comment">Edit Comment</label>   
+        <br>
+   <textarea name="comment" id="" cols="30" rows="5" placeholder="comment"><%=comm.comment%></textarea>
+</section> 
+   <button>Save</button>
+</form>
+
+<form method="POST" action="/comments/<%=comm.id%>?_method=DELETE" >
+<button>Delete</button>
+</form>
+<a href="/comments">index page</a>
+
+
+<%-include('partials/footer.ejs') %>

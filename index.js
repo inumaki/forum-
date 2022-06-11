@@ -11,10 +11,15 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 const {v4:uuid}= require('uuid')
 app.set('view engine','ejs')
+app.use(express.static(path.join(__dirname,'public')))
 app.set('views',path.join(__dirname,'views'))
+let methodOverride= require('method-override')
+app.use(methodOverride("_method"))
+
+//----------------------------------
 app.listen(3000,()=>{
 console.log('started listening at port 3000')
-
+//-----------------------------------------------
 })
 let Comments= [
 {id:uuid(),
@@ -40,18 +45,23 @@ comment:'i dont like this city'
 
 ]
 
-
+//-----------------------------------------------
 app.get('/comments',(req,res)=>
 {
 
 res.render('getcomments',{Comments});
 
 } )
+
+//-------------------------------------------
 app.get('/comments/new',(req,res)=>{
 
 res.render('newcomment');
 
 })
+
+//-----------------------------------------------
+
 app.post('/comments',(req,res)=>
 {
 
@@ -61,7 +71,7 @@ res.redirect("/comments")
 
 
 })
-
+//----------------shows the specific comment-------------------------------
 app.get("/comments/:id",(req,res)=>
 {
 const {id }= req.params;
@@ -69,5 +79,33 @@ const {id }= req.params;
  
   res.render('showcomment',{comm})
 
+
+})
+
+app.patch('/comments/:id',(req,res)=>
+{
+const {id }= req.params;
+const comm= Comments.find(c=> c.id===id)
+const newcomment= req.body.comment;
+comm.comment= newcomment
+res.redirect("/comments")
+
+})
+//-----------------------------------------------
+app.get('/comments/:id/edit',(req,res)=>{
+    const {id }= req.params;
+    const comm= Comments.find(c=> c.id===id)
+    res.render('editcomment',{comm})
+
+})
+
+
+app.delete('/comments/:id' ,(req ,res)=>{
+
+
+const {id }= req.params;
+console.log(id)
+Comments = Comments.filter(c=> c.id !== id)
+res.redirect('/comments')
 
 })
