@@ -9,13 +9,65 @@ const app= express();
 const path =require('path');
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
+const {v4:uuid}= require('uuid')
 app.set('view engine','ejs')
 app.set('views',path.join(__dirname,'views'))
 app.listen(3000,()=>{
 console.log('started listening at port 3000')
 
 })
+let Comments= [
+{id:uuid(),
+    username:'todd',
+comment:'thats so funny'
+
+},
+{
+    id:uuid(),
+    username:'charlie',
+comment:'x men was not that good'
+},
+{
+    id:uuid(),
+    username:'sarinder',
+comment:'something must be changed'
+},
+{
+    id:uuid(),
+    username:'james',
+comment:'i dont like this city'
+}
+
+]
 
 
+app.get('/comments',(req,res)=>
+{
 
-app.get()
+res.render('getcomments',{Comments});
+
+} )
+app.get('/comments/new',(req,res)=>{
+
+res.render('newcomment');
+
+})
+app.post('/comments',(req,res)=>
+{
+
+const {username , comment}= req.body
+Comments.push({username,comment,id:uuid()})
+res.redirect("/comments")
+
+
+})
+
+app.get("/comments/:id",(req,res)=>
+{
+const {id }= req.params;
+  const comm=  Comments.find(c => c.id== (id))
+ 
+  res.render('showcomment',{comm})
+
+
+})

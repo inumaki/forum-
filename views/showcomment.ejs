@@ -1,0 +1,16 @@
+<%-include('partials/head.ejs') %>
+
+
+<h1>Comment you asked for</h1>
+<div>
+    <h7><b><%= comm.username%></b></h7>
+      <h4><%=comm.comment%></h4>
+      
+      <p><%= comm.id%></p>
+    
+    </div>
+
+<a href="/comments">index page</a>
+
+
+<%-include('partials/footer.ejs') %>

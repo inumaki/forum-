@@ -1,0 +1,21 @@
+<%-include('partials/head.ejs') %>
+
+
+<h1>Write a new comment</h1>
+<form action="/comments" method="post">
+    <section>
+    <label for="username">Enter name : </label>
+    <input type="text" placeholder="username"  name="username">
+</section>
+<section>
+        <label for="comment">Comment</label>   
+        <br>
+   <textarea name="comment" id="" cols="30" rows="5" placeholder="comment"></textarea>
+</section> 
+   <button>Submit</button>
+
+</form>
+<a href="/comments">index page</a>
+
+
+<%-include('partials/footer.ejs') %>

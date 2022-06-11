@@ -1,0 +1,18 @@
+<%-include('partials/head.ejs') %>
+
+
+<h1>Comments</h1>
+<div>
+<% for(let comm of Comments) { %>
+  <ul>
+    <hr>
+      <li> <%=comm.comment%> : <b><%=comm.username %></b> <a href="/comments/<%=comm.id%>">details</a></li>
+<hr>
+</ul>
+ <% } %>
+
+ <a href="/comments/new">new comment</a>
+
+</div>
+
+<%-include('partials/footer.ejs') %>
